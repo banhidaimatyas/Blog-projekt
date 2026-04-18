@@ -17,3 +17,20 @@ export function getUser(): User | null {
     return null;
   }
 }
+
+export function getToken(): string | null {
+  return localStorage.getItem(TOKEN_KEY);
+}
+
+export function clearUser(): void {
+  localStorage.removeItem(USER_KEY);
+  localStorage.removeItem(TOKEN_KEY);
+}
+
+export function isLoggedIn(): boolean {
+  return getToken() !== null && getUser() !== null;
+}
+
+export function isAdmin(): boolean {
+  return getUser()?.role === 'admin';
+}
