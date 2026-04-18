@@ -4,74 +4,74 @@ import { renderHome } from './pages/home';
 import { renderPost } from './pages/post';
 import { renderLogin } from './pages/login';
 import { renderDashboard } from './pages/dashboard';
-interface Jogosultsag {
-    bejelentkezesKell: boolean;
+interface Permission {
+    needsLogin: boolean;
 }
 
-interface UtvonalDefinicio {
-    utvonal: string;
-    oldal: (params?: Record<string, string>) => void;
-    jog?: Jogosultsag;
+interface RouteDefinition {
+    path: string;
+    page: (params?: Record<string, string>) => void;
+    permission?: Permission;
 }
-const oldalak: UtvonalDefinicio[] = [
+const pages: RouteDefinition[] = [
     {
-        utvonal: '#/',
-        oldal: renderHome,
+        path: '#/',
+        page: renderHome,
     },
     {
-        utvonal: '#/blog/:id',
-        oldal: renderPost,
+        path: '#/blog/:id',
+        page: renderPost,
     },
     {
-        utvonal: '#/login',
-        oldal: renderLogin,
+        path: '#/login',
+        page: renderLogin,
     },
     {
-        utvonal: '#/dashboard',
-        oldal: renderDashboard,
-        jog: { bejelentkezesKell: true },
+        path: '#/dashboard',
+        page: renderDashboard,
+        permission: { needsLogin: true },
     },
 ];
-function illeszkedik(utvonal: string, hash: string): Record<string, string> | null {
-    const mintaReszek = utvonal.split('/');
-    const hashReszek = hash.split('/');
+function matches(path: string, hash: string): Record<string, string> | null {
+    const patternParts = path.split('/');
+    const hashParts = hash.split('/');
 
-    if (mintaReszek.length !== hashReszek.length) return null;
+    if (patternParts.length !== hashParts.length) return null;
 
     const params: Record<string, string> = {};
 
-    for (let i = 0; i < mintaReszek.length; i++) {
-        const minta = mintaReszek[i];
-        const ertek = hashReszek[i];
+    for (let i = 0; i < patternParts.length; i++) {
+        const pattern = patternParts[i];
+        const value = hashParts[i];
 
-        if (minta.startsWith(':')) {
-            params[minta.slice(1)] = ertek;
-        } else if (minta !== ertek) {
+        if (pattern.startsWith(':')) {
+            params[pattern.slice(1)] = value;
+        } else if (pattern !== value) {
             return null;
         }
     }
     return params;
 }
 
-function felold(): void {
+function resolve(): void {
     const hash = window.location.hash || '#/';
 
-    for (const def of oldalak) {
-        const params = illeszkedik(def.utvonal, hash);
+    for (const def of pages) {
+        const params = matches(def.path, hash);
         if (params !== null) {
-            if (def.jog?.bejelentkezesKell && !isLoggedIn()) {
+            if (def.permission?.needsLogin && !isLoggedIn()) {
                 window.location.hash = '#/login';
                 return;
             }
             renderNavbar();
-            def.oldal(params);
+            def.page(params);
             return;
         }
     }
     window.location.hash = '#/';
 }
 
-export function routerIndit(): void {
-    window.addEventListener('hashchange', felold);
-    felold();
+export function startRouter(): void {
+    window.addEventListener('hashchange', resolve);
+    resolve();
 }
