@@ -26,3 +26,17 @@ export interface AuthState {
   user: User | null;
   token: string | null;
 }
+
+export interface PostsResult {
+  posts: Post[];
+  total: number;
+}
+
+export interface PostsParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  categoryId?: number;
+}
+
+export type NewPost = Omit<Post, 'id'>;
