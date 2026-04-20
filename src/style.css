@@ -1,0 +1,954 @@
+/* src/style.css – Globális stílusok a Blog Platform alkalmazáshoz */
+
+/* ── CSS változók (design tokens) ─────────────────────────────────────────── */
+:root {
+  --color-bg: #f8f9fb;
+  --color-surface: #ffffff;
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-light: #eff6ff;
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+  --color-error-bg: #fef2f2;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-border: #e2e8f0;
+  --color-navbar: #1e293b;
+  --color-navbar-text: #f1f5f9;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Merriweather', Georgia, serif;
+}
+
+/* ── Reset és alap ──────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ── Elrendezés ─────────────────────────────────────────────────────────────── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ── Navigációs sáv ─────────────────────────────────────────────────────────── */
+.navbar {
+  background: var(--color-navbar);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 1rem;
+}
+
+.nav-logo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-navbar-text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.nav-logo-icon {
+  font-size: 1.4rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-user {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* ── Gombok ─────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  color: #fff;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #cbd5e1;
+  border-color: #475569;
+}
+
+.btn-outline:hover {
+  background: #334155;
+  color: #fff;
+  border-color: #64748b;
+}
+
+/* Outline a fehér felületen */
+.post-form-card .btn-outline,
+.auth-card .btn-outline,
+.container .btn-outline {
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.post-form-card .btn-outline:hover,
+.container .btn-outline:hover {
+  background: var(--color-bg);
+  border-color: #94a3b8;
+  color: var(--color-text);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: #fff;
+  border-color: var(--color-danger);
+}
+
+.btn-danger:hover {
+  background: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+}
+
+.btn-sm {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Betöltési állapotok ────────────────────────────────────────────────────── */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  gap: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.loading-inline {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Oldal fejléc ──────────────────────────────────────────────────────────── */
+.page-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.page-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+}
+
+/* ── Szűrő és kereső sáv ────────────────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.65rem 1rem 0.65rem 2.5rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  background: var(--color-surface);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.select-input {
+  padding: 0.65rem 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  background: var(--color-surface);
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.category-filter {
+  flex-shrink: 0;
+}
+
+/* ── Bejegyzés kártyák rácsa ─────────────────────────────────────────────────── */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.post-card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+.post-card:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.post-card--featured {
+  border-color: #f59e0b;
+}
+
+.post-card-image {
+  position: relative;
+  aspect-ratio: 16/8;
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.post-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-card:hover .post-card-image img {
+  transform: scale(1.04);
+}
+
+.post-card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.post-card-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.post-category,
+.post-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.post-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.6rem;
+  line-height: 1.4;
+}
+
+.post-card-excerpt {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 1rem;
+  /* Max 3 sor megjelenítése */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.post-author {
+  color: var(--color-text-secondary);
+}
+
+.post-read-more {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ── Jelvények (badge) ──────────────────────────────────────────────────────── */
+.badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.badge--featured {
+  background: #f59e0b;
+  color: #fff;
+}
+
+/* ── Lapozó ─────────────────────────────────────────────────────────────────── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 2rem 0;
+}
+
+.page-btn {
+  padding: 0.5rem 0.9rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.page-btn:hover:not(.disabled):not(.active) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.page-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.page-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-ellipsis {
+  color: var(--color-text-secondary);
+  padding: 0 0.3rem;
+}
+
+.page-info {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-left: 1rem;
+}
+
+/* ── Bejegyzés részletes oldal ─────────────────────────────────────────────── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.back-link:hover {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.post-detail {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.post-detail-image {
+  position: relative;
+  max-height: 480px;
+  overflow: hidden;
+}
+
+.post-detail-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 480px;
+  object-fit: cover;
+}
+
+.post-featured-badge {
+  top: 1.25rem;
+  left: 1.25rem;
+}
+
+.post-detail-header {
+  padding: 2rem 2.5rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.post-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.post-category-tag,
+.post-date-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.post-date-tag {
+  background: #f8fafc;
+  color: var(--color-text-secondary);
+}
+
+.post-detail-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.post-author-info {
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.post-excerpt {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.post-detail-content {
+  padding: 2rem 2.5rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #334155;
+}
+
+.post-detail-content p {
+  margin-bottom: 1.4rem;
+}
+
+.post-detail-footer {
+  padding: 1.5rem 2.5rem 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Bejelentkezési oldal ──────────────────────────────────────────────────── */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.auth-card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 440px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-icon {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.auth-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+
+.auth-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-hint {
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.auth-hint p {
+  margin-bottom: 0.4rem;
+}
+
+.auth-hint p:last-child {
+  margin-bottom: 0;
+}
+
+code {
+  background: #e2e8f0;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+}
+
+/* ── Form elemek ─────────────────────────────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group--full {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.form-input {
+  padding: 0.65rem 0.9rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  background: var(--color-surface);
+  color: var(--color-text);
+  width: 100%;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.required {
+  color: var(--color-danger);
+}
+
+/* ── Figyelmeztető / állapot üzenetek ──────────────────────────────────────── */
+.alert {
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.alert-error {
+  background: var(--color-error-bg);
+  color: var(--color-danger);
+  border: 1px solid #fecaca;
+}
+
+.alert-success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  border: 1px solid #bbf7d0;
+}
+
+/* ── Dashboard ──────────────────────────────────────────────────────────────── */
+.dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-welcome {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.3rem;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.role-badge--admin {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.role-badge--adminisztrator {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.dashboard-table-wrapper {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-border);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:hover td {
+  background: #f8fafc;
+}
+
+.td-id {
+  color: var(--color-text-secondary);
+  width: 60px;
+}
+
+.td-title {
+  max-width: 300px;
+}
+
+.table-post-link {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.table-post-link:hover {
+  color: var(--color-primary);
+}
+
+.td-actions {
+  display: flex;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+/* ── Bejegyzés form ────────────────────────────────────────────────────────── */
+.post-form-card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
+  border: 2px solid var(--color-primary);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* ── Üres és hibás állapotok ────────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  grid-column: 1 / -1;
+}
+
+.error-message {
+  background: var(--color-error-bg);
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-danger);
+}
+
+.error-message h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* ── Reszponzív design ──────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-detail-header,
+  .post-detail-content,
+  .post-detail-footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .post-detail-title {
+    font-size: 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+  }
+
+  .data-table th:nth-child(3),
+  .data-table td:nth-child(3) {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 0.6rem;
+  }
+
+  .page-title {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .td-actions {
+    flex-direction: column;
+  }
+}

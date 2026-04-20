@@ -121,6 +121,22 @@ server.get('/api/me', (req, res) => {
   });
 });
 
+// ── Kategóriák: "name" → "nev" átkonvertálása ────────────────────────────────
+
+server.get('/api/categories', (req, res) => {
+  const db = router.db;
+  const categories = db.get('categories').value();
+  
+  // "name" mezőt "nev"-re konvertálunk
+  const transformedCategories = categories.map(cat => ({
+    id: cat.id,
+    nev: cat.name,
+    slug: cat.slug,
+  }));
+  
+  return res.json(transformedCategories);
+});
+
 // ── Jogosultság-ellenőrző middleware a /api/posts végpontokhoz ───────────────────
 
 server.use('/api/posts', (req, res, next) => {

@@ -22,8 +22,8 @@
       "userId": 2
     },
     {
-      "id": 1776709274551,
-      "token": "482125cff1ba2b67fda9c0594a71c7588302fef884d526e6518741e194f4b553",
+      "id": 1776710863425,
+      "token": "b7965660b9059a258b2bf1a0439d9955f7d2eb5fa6eb8464bc6ee14fe5f3cfc3",
       "userId": 1
     }
   ],
@@ -279,6 +279,17 @@
       "datum": "2025-06-06",
       "boritekep": "https://picsum.photos/seed/crispr/800/450",
       "kiemelt": false
+    },
+    {
+      "cim": "Majom",
+      "kivonat": "Majom",
+      "tartalom": "Majom",
+      "categoryId": 2,
+      "boritekep": "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bW9ua2V5fGVufDB8fDB8fHww",
+      "kiemelt": true,
+      "szerzo": "Nagy Péter",
+      "datum": "2026-04-20",
+      "id": 21
     }
   ]
 }
