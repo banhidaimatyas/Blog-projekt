@@ -121,9 +121,9 @@ server.get('/api/me', (req, res) => {
   });
 });
 
-// ── Jogosultság-ellenőrző middleware a /posts végpontokhoz ───────────────────
+// ── Jogosultság-ellenőrző middleware a /api/posts végpontokhoz ───────────────────
 
-server.use('/posts', (req, res, next) => {
+server.use('/api/posts', (req, res, next) => {
   // GET kérések publikusak
   if (req.method === 'GET') return next();
 
@@ -146,7 +146,7 @@ server.use('/posts', (req, res, next) => {
 
 // ── A json-server router kezel mindent mást ──────────────────────────────────
 
-server.use(router);
+server.use('/api', router);
 
 // ── Szerver indítása ─────────────────────────────────────────────────────────
 
@@ -157,10 +157,10 @@ server.listen(PORT, () => {
   console.log('  POST   /api/login');
   console.log('  POST   /api/logout');
   console.log('  GET    /api/me');
-  console.log('  GET    /posts          (publikus)');
-  console.log('  GET    /posts/:id      (publikus)');
-  console.log('  POST   /posts          (adminisztrátor, admin)');
-  console.log('  PUT    /posts/:id      (adminisztrátor, admin)');
-  console.log('  DELETE /posts/:id      (csak admin)');
-  console.log('  GET    /categories     (publikus)');
+  console.log('  GET    /api/posts          (publikus)');
+  console.log('  GET    /api/posts/:id      (publikus)');
+  console.log('  POST   /api/posts          (adminisztrátor, admin)');
+  console.log('  PUT    /api/posts/:id      (adminisztrátor, admin)');
+  console.log('  DELETE /api/posts/:id      (csak admin)');
+  console.log('  GET    /api/categories     (publikus)');
 });
