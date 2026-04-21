@@ -36,7 +36,7 @@ export async function logout(): Promise<void> {
 }
 
 export async function getPosts(params: PostsParams): Promise<PostsResult> {
-    const url = new URL('/posts', window.location.origin);
+    const url = new URL('/api/posts', window.location.origin);
     if (params.page !== undefined) url.searchParams.set('_page', String(params.page));
     if (params.limit !== undefined) url.searchParams.set('_limit', String(params.limit));
     if (params.search) url.searchParams.set('cim_like', params.search);
@@ -49,19 +49,19 @@ export async function getPosts(params: PostsParams): Promise<PostsResult> {
 }
 
 export async function getPost(id: number): Promise<Post> {
-    const response = await fetch(`/posts/${id}`);
+    const response = await fetch(`/api/posts/${id}`);
     if (!response.ok) throw new Error('A bejegyzés nem található.');
     return response.json();
 }
 
 export async function getAllPosts(): Promise<Post[]> {
-    const response = await fetch('/posts');
+    const response = await fetch('/api/posts');
     if (!response.ok) throw new Error('Nem sikerült betölteni a bejegyzéseket.');
     return response.json();
 }
 
 export async function createPost(post: NewPost): Promise<Post> {
-    const response = await fetch('/posts', {
+    const response = await fetch('/api/posts', {
         method: 'POST',
         headers: authHeaders(),
         body: JSON.stringify(post),
@@ -71,7 +71,7 @@ export async function createPost(post: NewPost): Promise<Post> {
 }
 
 export async function updatePost(id: number, post: Post): Promise<Post> {
-    const response = await fetch(`/posts/${id}`, {
+    const response = await fetch(`/api/posts/${id}`, {
         method: 'PUT',
         headers: authHeaders(),
         body: JSON.stringify(post),
@@ -81,7 +81,7 @@ export async function updatePost(id: number, post: Post): Promise<Post> {
 }
 
 export async function deletePost(id: number): Promise<void> {
-    const response = await fetch(`/posts/${id}`, {
+    const response = await fetch(`/api/posts/${id}`, {
         method: 'DELETE',
         headers: authHeaders(),
     });
@@ -89,7 +89,7 @@ export async function deletePost(id: number): Promise<void> {
 }
 
 export async function getCategories(): Promise<Category[]> {
-    const response = await fetch('/categories');
+    const response = await fetch('/api/categories');
     if (!response.ok) throw new Error('Nem sikerült betölteni a kategóriákat.');
     return response.json();
 }
